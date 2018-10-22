@@ -1,12 +1,15 @@
 # insomnia
 
 #
-First, extract SNP from UK Biobank genetic database
+First, extract genetic data from UKB
 https://github.com/qy17115/insomnia/tree/master/genotype
 
 #
-Second, extract phenotypic data
+Second, extract phenotype data from UKB
 https://github.com/qy17115/insomnia/tree/master/phenotype
 
 #
 MR analyses
+
+#
+Sensitivity analysis in ALSPAC
