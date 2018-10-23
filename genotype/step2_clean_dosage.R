@@ -23,7 +23,8 @@ colnames(genetic_use_long)[1]<-"eid"
 covariate<-read.table("M:/data/ukbiobank/_latest/UKBIOBANK_Phenotypes_App_23938/data/derived/standard_covariates/data.covariates_app2393.txt",header = TRUE)
 covariate<-covariate[c(2:4)]
 colnames(covariate)<-c("eid","sex","array")
-female<-covariate[ which(covariate$sex=="F"),]
+covariate$sex<-as.numeric(covariate$sex)
+female<-covariate[ which(covariate$sex==1),]
 female_use1<-merge(genetic_use_long,female,by="eid")
 
 pc10<-read.table("M:/data/ukbiobank/_latest/UKBIOBANK_Phenotypes_App_23938/data/derived/principal_components/data.pca1-10.field_22009_app2393.txt",header = TRUE)
@@ -46,7 +47,7 @@ female_use2<-female_use2[c(1:84)]
 
 #creat allele score
 summary(female_use2)
-for (i in 1:72){
+for (i in 2:72){
   female_use2[,i] <- as.numeric(female_use2[,i])
 }
 #make sure effect allele
