@@ -96,4 +96,24 @@ rename n_20441_0_0 depress1
 rename n_20446_0_0 depress2
 rename n_20445_0_0 depress3
 
+
+*drop value labels to make values numeric in R
+label drop m_0090
+label drop m_0503
+label drop m_0514
+label drop m_1001
+label drop m_100291
+label drop m_100305
+label drop m_100341
+label drop m_100342
+label drop m_100343
+label drop m_100345
+label drop m_100346
+label drop m_100349
+label drop m_100402
+label drop m_100584
+label drop m_100585
+label drop m_100586
+label drop m_100617
+
 save "O:\ukbb-sleep\phenotype\phenotype20180929.dta", replace
