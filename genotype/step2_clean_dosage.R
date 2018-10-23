@@ -80,6 +80,7 @@ female_use2$rs7217547<-2-female_use2$rs7217547
 female_use2$rs117037340<-2-female_use2$rs117037340
 #unweighted allele score
 female_use2$grs<-rowSums(female_use2[,c(2:72)])
+summary(female_use2)
 hist(female_use2$grs)
 
 #output data
