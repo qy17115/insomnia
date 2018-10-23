@@ -84,5 +84,5 @@ summary(female_use2)
 hist(female_use2$grs)
 
 #output data
-write.csv(female_use2,"O:/ukbb-sleep/genetic/iv.csv")
+write.csv(female_use2,"O:/ukbb-sleep/genetic/iv.csv",row.names = FALSE)
 write.csv(information,"C:/mini project 2/results/insomnia71 in UKB.csv")
