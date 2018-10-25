@@ -9,7 +9,7 @@ Second, extract phenotype data from UKB
 https://github.com/qy17115/insomnia/tree/master/phenotype
 
 #
-MR analyses
+Third, MR analyses
 https://github.com/qy17115/insomnia/tree/master/MR
 
 #
