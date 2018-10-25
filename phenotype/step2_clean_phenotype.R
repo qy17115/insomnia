@@ -102,6 +102,21 @@ table(insomnia$age_1stbirth,exclude=NULL)
 insomnia$age_1stbirth[insomnia$age_1stbirth<0]<-NA
 
 #education attainment
+table(insomnia$edu1,exclude=NULL)
+table(insomnia$edu2,exclude=NULL)
+table(insomnia$edu3,exclude=NULL)
+table(insomnia$edu4,exclude=NULL)
+table(insomnia$edu5,exclude=NULL)
+table(insomnia$edu6,exclude=NULL)
+
+insomnia$edu[insomnia$edu1==-7]<-1
+insomnia$edu[insomnia$edu1==3|insomnia$edu2==3|insomnia$edu3==3]<-1
+insomnia$edu[insomnia$edu1==4|insomnia$edu2==4|insomnia$edu3==4|insomnia$edu4==4]<-1
+insomnia$edu[insomnia$edu1==5|insomnia$edu2==5|insomnia$edu3==5|insomnia$edu4==5|insomnia$edu5==5]<-1
+insomnia$edu[insomnia$edu1==6|insomnia$edu2==6|insomnia$edu3==6|insomnia$edu4==6|insomnia$edu5==6|insomnia$edu6==6]<-2
+insomnia$edu[insomnia$edu1==2|insomnia$edu2==2]<-2
+insomnia$edu[insomnia$edu1==1]<-3
+table(insomnia$edu,exclude=NULL)
 
 #smoking
 table(insomnia$smoke,exclude=NULL)
@@ -116,3 +131,18 @@ summary(insomnia$height)
 
 #BMI
 summary(insomnia$bmi)
+
+#save dataset for analysis
+#grs-confounder
+confounder_list<-c("eid", "sex", "array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10","grs","height","alcohol","age_1stbirth","smoke","bmi","edu")
+confounder<-insomnia[confounder_list]
+write.csv(confounder,"O:/ukbb-sleep/phenotype/confounder.csv",row.names = FALSE)
+
+#MR
+mr_list<-c("eid", "sex", "array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10","grs","insomnia_main","insomnia_sen","pregloss","stillbirth","miscarriage","gdm_define","depress","stillbirth_s","miscarriage_s","gdm_define_s","depress_s","bwchild")
+mr<-insomnia[mr_list]
+write.csv(mr,"O:/ukbb-sleep/phenotype/mr.csv",row.names = FALSE)
+
+#MR, sensitivity analysis
+
+
