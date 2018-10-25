@@ -22,25 +22,23 @@ table(insomnia$pregloss,exclude=NULL)
 insomnia$pregloss[insomnia$pregloss<0]<-NA
 table(insomnia$pregloss,exclude=NULL)
 
+#main analysis
 #stillbirth, 0=control, 1=case
 table(insomnia$nstillbirth,exclude=NULL)
 insomnia$stillbirth[insomnia$pregloss==0]<-0
 insomnia$stillbirth[insomnia$nstillbirth>0]<-1
 table(insomnia$stillbirth,exclude=NULL)
-
 #missage, 0=control, 1=case
 table(insomnia$nmiscarriage,exclude=NULL)
 insomnia$miscarriage[insomnia$pregloss==0]<-0
 insomnia$miscarriage[insomnia$nmiscarriage>0]<-1
 table(insomnia$miscarriage,exclude=NULL)
-
 #gestational diabetes
 table(insomnia$diabetes,exclude=NULL)
 table(insomnia$gdm,exclude=NULL)
 insomnia$gdm_define[insomnia$diabetes==0]<-0
 insomnia$gdm_define[insomnia$gdm==1]<-1
 table(insomnia$gdm_define,exclude=NULL)
-
 #postnatal depression
 table(insomnia$depress1,exclude=NULL)
 table(insomnia$depress2,exclude=NULL)
@@ -48,6 +46,35 @@ table(insomnia$depress3,exclude=NULL)
 insomnia$depress[insomnia$depress1==0 & insomnia$depress2==0]<-0
 insomnia$depress[insomnia$depress3==1]<-1
 table(insomnia$depress,exclude=NULL)
+
+#sensitivity analysis
+#stillbirth, 0=control, 1=case
+table(insomnia$nstillbirth,exclude=NULL)
+insomnia$stillbirth_s[insomnia$pregloss==0]<-0
+insomnia$stillbirth_s[insomnia$nstillbirth==0]<-0 #excluded by the main analysis
+insomnia$stillbirth_s[insomnia$nstillbirth>0]<-1
+table(insomnia$stillbirth_s,exclude=NULL)
+#missage, 0=control, 1=case
+table(insomnia$nmiscarriage,exclude=NULL)
+insomnia$miscarriage_s[insomnia$pregloss==0]<-0
+insomnia$miscarriage_s[insomnia$nmiscarriage==0]<-0 #excluded by the main analysis
+insomnia$miscarriage_s[insomnia$nmiscarriage>0]<-1
+table(insomnia$miscarriage_s,exclude=NULL)
+#gestational diabetes
+table(insomnia$diabetes,exclude=NULL)
+table(insomnia$gdm,exclude=NULL)
+insomnia$gdm_define_s[insomnia$diabetes==0]<-0
+insomnia$gdm_define_s[insomnia$gdm==0]<-0  #excluded by the main analysis
+insomnia$gdm_define_s[insomnia$gdm==1]<-1
+table(insomnia$gdm_define_s,exclude=NULL)
+#postnatal depression
+table(insomnia$depress1,exclude=NULL)
+table(insomnia$depress2,exclude=NULL)
+table(insomnia$depress3,exclude=NULL)
+insomnia$depress_s[insomnia$depress1==0 & insomnia$depress2==0]<-0
+insomnia$depress_s[insomnia$depress3==0]<-0 #excluded by the main analysis
+insomnia$depress_s[insomnia$depress3==1]<-1
+table(insomnia$depress_s,exclude=NULL)
 
 #offspring birthweight (questionnaire)
 summary(insomnia$bwchild)
