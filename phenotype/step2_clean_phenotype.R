@@ -133,16 +133,6 @@ summary(insomnia$height)
 summary(insomnia$bmi)
 
 #save dataset for analysis
-#grs-confounder
-confounder_list<-c("eid", "sex", "array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10","grs","height","alcohol","age_1stbirth","smoke","bmi","edu")
-confounder<-insomnia[confounder_list]
-write.csv(confounder,"O:/ukbb-sleep/phenotype/confounder.csv",row.names = FALSE)
-
-#MR
-mr_list<-c("eid", "sex", "array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10","grs","insomnia_main","insomnia_sen","pregloss","stillbirth","miscarriage","gdm_define","depress","stillbirth_s","miscarriage_s","gdm_define_s","depress_s","bwchild")
-mr<-insomnia[mr_list]
-write.csv(mr,"O:/ukbb-sleep/phenotype/mr.csv",row.names = FALSE)
-
-#MR, sensitivity analysis
+write.csv(insomnia,"O:/ukbb-sleep/phenotype/insomnia.csv",row.names = FALSE)
 
 
