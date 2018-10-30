@@ -18,11 +18,11 @@ hist(confounder$grs_new,breaks=40)
 ############################################################################################################
 #GRS~confounder
 #height, bmi, age at 1st live birth
-height<-lm(confounder$height~.,data=confounder[,c("grs_new","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
+height<-lm(confounder$height~.,data=confounder[,c("grs","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
 summary(height)
-bmi<-lm(confounder$bmi~.,data=confounder[,c("grs_new","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
+bmi<-lm(confounder$bmi~.,data=confounder[,c("grs","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
 summary(bmi)
-agebirth<-lm(confounder$age_1stbirth~.,data=confounder[,c("grs_new","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
+agebirth<-lm(confounder$age_1stbirth~.,data=confounder[,c("grs","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
 summary(agebirth)
 ##SNP-specific
 vars <- names(confounder[c(2:72)])
@@ -49,11 +49,11 @@ for(i in 1:length(vars)) {
 confounder$alcohol<-7-confounder$alcohol
 table(confounder$alcohol,exclude=NULL)
 
-edu<-lm(confounder$edu~.,data=confounder[,c("grs_new","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
+edu<-lm(confounder$edu~.,data=confounder[,c("grs","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
 summary(edu)
-smoke<-lm(confounder$smoke~.,data=confounder[,c("grs_new","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
+smoke<-lm(confounder$smoke~.,data=confounder[,c("grs","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
 summary(smoke)
-alcohol<-lm(confounder$alcohol~.,data=confounder[,c("grs_new","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
+alcohol<-lm(confounder$alcohol~.,data=confounder[,c("grs","array","pc1","pc2","pc3","pc4","pc5","pc6","pc7","pc8","pc9","pc10")])
 summary(alcohol)
 
 ##SNP-specific
