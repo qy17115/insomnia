@@ -43,14 +43,21 @@ related<-rbind(minimal,high_related)
 colnames(related)<-c("eid","eid2")
 exclude_related<-merge(female_use1,related,by="eid",all=TRUE)
 female_use2<-exclude_related[ which(is.na(exclude_related$eid2)),]
-female_use2<-female_use2[c(1:84)]
+female_use2<-female_use2[c(1:93)]
 
 #creat allele score
 summary(female_use2)
-for (i in 2:72){
+for (i in 2:81){
   female_use2[,i] <- as.numeric(female_use2[,i])
 }
 #make sure effect allele
+female_use2$rs56097173<-2-female_use2$rs56097173
+female_use2$rs10865954<-2-female_use2$rs10865954
+female_use2$rs406761<-2-female_use2$rs406761
+female_use2$rs10947690<-2-female_use2$rs10947690
+female_use2$rs3923809<-2-female_use2$rs3923809
+female_use2$rs76540488<-2-female_use2$rs76540488
+female_use2$rs9563886<-2-female_use2$rs9563886
 female_use2$rs13010288<-2-female_use2$rs13010288
 female_use2$rs62158206<-2-female_use2$rs62158206
 female_use2$rs3774751<-2-female_use2$rs3774751
@@ -80,10 +87,10 @@ female_use2$rs9931543<-2-female_use2$rs9931543
 female_use2$rs7217547<-2-female_use2$rs7217547
 female_use2$rs117037340<-2-female_use2$rs117037340
 #unweighted allele score
-female_use2$grs<-rowSums(female_use2[,c(2:72)])
+female_use2$grs<-rowSums(female_use2[,c(2:81)])
 summary(female_use2)
 hist(female_use2$grs)
 
 #output data
 write.csv(female_use2,"O:/ukbb-sleep/genetic/iv.csv",row.names = FALSE)
-write.csv(information,"C:/mini project 2/results/insomnia71 in UKB.csv")
+write.csv(information,"C:/mini project 2/results/insomnia80 in UKB.csv")
