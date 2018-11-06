@@ -1,0 +1,206 @@
+#use correct path
+.libPaths("C:/R/Library")
+
+# Clear the work environment
+rm(list = ls())
+
+#observational study
+#input data
+observ<-read.csv("O:/ukbb-sleep/phenotype/insomnia.csv")
+summary(observ)
+
+######################################################################################
+######################################################################################
+#regression
+######################################################################################
+######################################################################################
+summary(observ$insomnia_main)
+summary(observ$insomnia_sen)
+observ$insomnia[observ$insomnia<0]<-NA
+summary(observ$insomnia)
+#pregnancy loss
+pre_loss1<-glm(observ$pregloss~observ$insomnia_main,binomial(link = "logit"))
+pre_loss2<-glm(observ$pregloss~observ$insomnia_sen,binomial(link = "logit"))
+pre_loss3<-glm(observ$pregloss~observ$insomnia,binomial(link = "logit"))
+
+#stillbirth_main
+stillbirth_main1<-glm(observ$stillbirth~observ$insomnia_main,binomial(link = "logit"))
+stillbirth_main2<-glm(observ$stillbirth~observ$insomnia_sen,binomial(link = "logit"))
+stillbirth_main3<-glm(observ$stillbirth~observ$insomnia,binomial(link = "logit"))
+
+#stillbirth_sen
+stillbirth_sen1<-glm(observ$stillbirth_s~observ$insomnia_main,binomial(link = "logit"))
+stillbirth_sen2<-glm(observ$stillbirth_s~observ$insomnia_sen,binomial(link = "logit"))
+stillbirth_sen3<-glm(observ$stillbirth_s~observ$insomnia,binomial(link = "logit"))
+
+#miscarriage_main
+miscarriage_main1<-glm(observ$miscarriage~observ$insomnia_main,binomial(link = "logit"))
+miscarriage_main2<-glm(observ$miscarriage~observ$insomnia_sen,binomial(link = "logit"))
+miscarriage_main3<-glm(observ$miscarriage~observ$insomnia,binomial(link = "logit"))
+
+#miscarriage_sen
+miscarriage_sen1<-glm(observ$miscarriage_s~observ$insomnia_main,binomial(link = "logit"))
+miscarriage_sen2<-glm(observ$miscarriage_s~observ$insomnia_sen,binomial(link = "logit"))
+miscarriage_sen3<-glm(observ$miscarriage_s~observ$insomnia,binomial(link = "logit"))
+
+#gdm_main
+gdm_main1<-glm(observ$gdm_define~observ$insomnia_main,binomial(link = "logit"))
+gdm_main2<-glm(observ$gdm_define~observ$insomnia_sen,binomial(link = "logit"))
+gdm_main3<-glm(observ$gdm_define~observ$insomnia,binomial(link = "logit"))
+
+#gdm_sen
+gdm_sen1<-glm(observ$gdm_define_s~observ$insomnia_main,binomial(link = "logit"))
+gdm_sen2<-glm(observ$gdm_define_s~observ$insomnia_sen,binomial(link = "logit"))
+gdm_sen3<-glm(observ$gdm_define_s~observ$insomnia,binomial(link = "logit"))
+
+#depression_main
+depress_main1<-glm(observ$depress~observ$insomnia_main,binomial(link = "logit"))
+depress_main2<-glm(observ$depress~observ$insomnia_sen,binomial(link = "logit"))
+depress_main3<-glm(observ$depress~observ$insomnia,binomial(link = "logit"))
+
+#depression_sen
+depress_sen1<-glm(observ$depress_s~observ$insomnia_main,binomial(link = "logit"))
+depress_sen2<-glm(observ$depress_s~observ$insomnia_sen,binomial(link = "logit"))
+depress_sen3<-glm(observ$depress_s~observ$insomnia,binomial(link = "logit"))
+
+#birthweight
+bw1<-lm(observ$bwchild~observ$insomnia_main)
+bw2<-lm(observ$bwchild~observ$insomnia_sen)
+bw3<-lm(observ$bwchild~observ$insomnia)
+
+vars <- c("pre_loss","stillbirth(main)","stillbirth(sen)","miscarriage(main)","miscarriage(sen)","gdm(main)","gdm(sen)","depression(main)","depression(sen)","bw")
+col.names <- c("main(est)","main(lcl)","main(ucl)","main(p)","s(est)","s(lcl)","s(ucl)","s(p)","3(est)","3(lcl)","3(ucl)","3(p)")
+covar <- matrix(, ncol=12, nrow=length(vars))
+dimnames(covar) <- list(vars, col.names)
+
+covar[1,1]<-exp(summary(pre_loss1)$coefficients[2,1])
+covar[1,2]<-exp(summary(pre_loss1)$coefficients[2,1]-1.96*summary(pre_loss1)$coefficients[2,2])
+covar[1,3]<-exp(summary(pre_loss1)$coefficients[2,1]+1.96*summary(pre_loss1)$coefficients[2,2])
+covar[1,4]<-summary(pre_loss1)$coefficients[2,4]
+covar[1,5]<-exp(summary(pre_loss2)$coefficients[2,1])
+covar[1,6]<-exp(summary(pre_loss2)$coefficients[2,1]-1.96*summary(pre_loss2)$coefficients[2,2])
+covar[1,7]<-exp(summary(pre_loss2)$coefficients[2,1]+1.96*summary(pre_loss2)$coefficients[2,2])
+covar[1,8]<-summary(pre_loss2)$coefficients[2,4]
+covar[1,9]<-exp(summary(pre_loss3)$coefficients[2,1])
+covar[1,10]<-exp(summary(pre_loss3)$coefficients[2,1]-1.96*summary(pre_loss3)$coefficients[2,2])
+covar[1,11]<-exp(summary(pre_loss3)$coefficients[2,1]+1.96*summary(pre_loss3)$coefficients[2,2])
+covar[1,12]<-summary(pre_loss3)$coefficients[2,4]
+
+covar[2,1]<-exp(summary(stillbirth_main1)$coefficients[2,1])
+covar[2,2]<-exp(summary(stillbirth_main1)$coefficients[2,1]-1.96*summary(stillbirth_main1)$coefficients[2,2])
+covar[2,3]<-exp(summary(stillbirth_main1)$coefficients[2,1]+1.96*summary(stillbirth_main1)$coefficients[2,2])
+covar[2,4]<-summary(stillbirth_main1)$coefficients[2,4]
+covar[2,5]<-exp(summary(stillbirth_main2)$coefficients[2,1])
+covar[2,6]<-exp(summary(stillbirth_main2)$coefficients[2,1]-1.96*summary(stillbirth_main2)$coefficients[2,2])
+covar[2,7]<-exp(summary(stillbirth_main2)$coefficients[2,1]+1.96*summary(stillbirth_main2)$coefficients[2,2])
+covar[2,8]<-summary(stillbirth_main2)$coefficients[2,4]
+covar[2,9]<-exp(summary(stillbirth_main3)$coefficients[2,1])
+covar[2,10]<-exp(summary(stillbirth_main3)$coefficients[2,1]-1.96*summary(stillbirth_main3)$coefficients[2,2])
+covar[2,11]<-exp(summary(stillbirth_main3)$coefficients[2,1]+1.96*summary(stillbirth_main3)$coefficients[2,2])
+covar[2,12]<-summary(stillbirth_main3)$coefficients[2,4]
+
+covar[3,1]<-exp(summary(stillbirth_sen1)$coefficients[2,1])
+covar[3,2]<-exp(summary(stillbirth_sen1)$coefficients[2,1]-1.96*summary(stillbirth_sen1)$coefficients[2,2])
+covar[3,3]<-exp(summary(stillbirth_sen1)$coefficients[2,1]+1.96*summary(stillbirth_sen1)$coefficients[2,2])
+covar[3,4]<-summary(stillbirth_sen1)$coefficients[2,4]
+covar[3,5]<-exp(summary(stillbirth_sen2)$coefficients[2,1])
+covar[3,6]<-exp(summary(stillbirth_sen2)$coefficients[2,1]-1.96*summary(stillbirth_sen2)$coefficients[2,2])
+covar[3,7]<-exp(summary(stillbirth_sen2)$coefficients[2,1]+1.96*summary(stillbirth_sen2)$coefficients[2,2])
+covar[3,8]<-summary(stillbirth_sen2)$coefficients[2,4]
+covar[3,9]<-exp(summary(stillbirth_sen3)$coefficients[2,1])
+covar[3,10]<-exp(summary(stillbirth_sen3)$coefficients[2,1]-1.96*summary(stillbirth_sen3)$coefficients[2,2])
+covar[3,11]<-exp(summary(stillbirth_sen3)$coefficients[2,1]+1.96*summary(stillbirth_sen3)$coefficients[2,2])
+covar[3,12]<-summary(stillbirth_sen3)$coefficients[2,4]
+
+covar[4,1]<-exp(summary(miscarriage_main1)$coefficients[2,1])
+covar[4,2]<-exp(summary(miscarriage_main1)$coefficients[2,1]-1.96*summary(miscarriage_main1)$coefficients[2,2])
+covar[4,3]<-exp(summary(miscarriage_main1)$coefficients[2,1]+1.96*summary(miscarriage_main1)$coefficients[2,2])
+covar[4,4]<-summary(miscarriage_main1)$coefficients[2,4]
+covar[4,5]<-exp(summary(miscarriage_main2)$coefficients[2,1])
+covar[4,6]<-exp(summary(miscarriage_main2)$coefficients[2,1]-1.96*summary(miscarriage_main2)$coefficients[2,2])
+covar[4,7]<-exp(summary(miscarriage_main2)$coefficients[2,1]+1.96*summary(miscarriage_main2)$coefficients[2,2])
+covar[4,8]<-summary(miscarriage_main2)$coefficients[2,4]
+covar[4,9]<-exp(summary(miscarriage_main3)$coefficients[2,1])
+covar[4,10]<-exp(summary(miscarriage_main3)$coefficients[2,1]-1.96*summary(miscarriage_main3)$coefficients[2,2])
+covar[4,11]<-exp(summary(miscarriage_main3)$coefficients[2,1]+1.96*summary(miscarriage_main3)$coefficients[2,2])
+covar[4,12]<-summary(miscarriage_main3)$coefficients[2,4]
+
+covar[5,1]<-exp(summary(miscarriage_sen1)$coefficients[2,1])
+covar[5,2]<-exp(summary(miscarriage_sen1)$coefficients[2,1]-1.96*summary(miscarriage_sen1)$coefficients[2,2])
+covar[5,3]<-exp(summary(miscarriage_sen1)$coefficients[2,1]+1.96*summary(miscarriage_sen1)$coefficients[2,2])
+covar[5,4]<-summary(miscarriage_sen1)$coefficients[2,4]
+covar[5,5]<-exp(summary(miscarriage_sen2)$coefficients[2,1])
+covar[5,6]<-exp(summary(miscarriage_sen2)$coefficients[2,1]-1.96*summary(miscarriage_sen2)$coefficients[2,2])
+covar[5,7]<-exp(summary(miscarriage_sen2)$coefficients[2,1]+1.96*summary(miscarriage_sen2)$coefficients[2,2])
+covar[5,8]<-summary(miscarriage_sen2)$coefficients[2,4]
+covar[5,9]<-exp(summary(miscarriage_sen3)$coefficients[2,1])
+covar[5,10]<-exp(summary(miscarriage_sen3)$coefficients[2,1]-1.96*summary(miscarriage_sen3)$coefficients[2,2])
+covar[5,11]<-exp(summary(miscarriage_sen3)$coefficients[2,1]+1.96*summary(miscarriage_sen3)$coefficients[2,2])
+covar[5,12]<-summary(miscarriage_sen3)$coefficients[2,4]
+
+covar[6,1]<-exp(summary(gdm_main1)$coefficients[2,1])
+covar[6,2]<-exp(summary(gdm_main1)$coefficients[2,1]-1.96*summary(gdm_main1)$coefficients[2,2])
+covar[6,3]<-exp(summary(gdm_main1)$coefficients[2,1]+1.96*summary(gdm_main1)$coefficients[2,2])
+covar[6,4]<-summary(gdm_main1)$coefficients[2,4]
+covar[6,5]<-exp(summary(gdm_main2)$coefficients[2,1])
+covar[6,6]<-exp(summary(gdm_main2)$coefficients[2,1]-1.96*summary(gdm_main2)$coefficients[2,2])
+covar[6,7]<-exp(summary(gdm_main2)$coefficients[2,1]+1.96*summary(gdm_main2)$coefficients[2,2])
+covar[6,8]<-summary(gdm_main2)$coefficients[2,4]
+covar[6,9]<-exp(summary(gdm_main3)$coefficients[2,1])
+covar[6,10]<-exp(summary(gdm_main3)$coefficients[2,1]-1.96*summary(gdm_main3)$coefficients[2,2])
+covar[6,11]<-exp(summary(gdm_main3)$coefficients[2,1]+1.96*summary(gdm_main3)$coefficients[2,2])
+covar[6,12]<-summary(gdm_main3)$coefficients[2,4]
+
+covar[7,1]<-exp(summary(gdm_sen1)$coefficients[2,1])
+covar[7,2]<-exp(summary(gdm_sen1)$coefficients[2,1]-1.96*summary(gdm_sen1)$coefficients[2,2])
+covar[7,3]<-exp(summary(gdm_sen1)$coefficients[2,1]+1.96*summary(gdm_sen1)$coefficients[2,2])
+covar[7,4]<-summary(gdm_sen1)$coefficients[2,4]
+covar[7,5]<-exp(summary(gdm_sen2)$coefficients[2,1])
+covar[7,6]<-exp(summary(gdm_sen2)$coefficients[2,1]-1.96*summary(gdm_sen2)$coefficients[2,2])
+covar[7,7]<-exp(summary(gdm_sen2)$coefficients[2,1]+1.96*summary(gdm_sen2)$coefficients[2,2])
+covar[7,8]<-summary(gdm_sen2)$coefficients[2,4]
+covar[7,9]<-exp(summary(gdm_sen3)$coefficients[2,1])
+covar[7,10]<-exp(summary(gdm_sen3)$coefficients[2,1]-1.96*summary(gdm_sen3)$coefficients[2,2])
+covar[7,11]<-exp(summary(gdm_sen3)$coefficients[2,1]+1.96*summary(gdm_sen3)$coefficients[2,2])
+covar[7,12]<-summary(gdm_sen3)$coefficients[2,4]
+
+covar[8,1]<-exp(summary(depress_main1)$coefficients[2,1])
+covar[8,2]<-exp(summary(depress_main1)$coefficients[2,1]-1.96*summary(depress_main1)$coefficients[2,2])
+covar[8,3]<-exp(summary(depress_main1)$coefficients[2,1]+1.96*summary(depress_main1)$coefficients[2,2])
+covar[8,4]<-summary(depress_main1)$coefficients[2,4]
+covar[8,5]<-exp(summary(depress_main2)$coefficients[2,1])
+covar[8,6]<-exp(summary(depress_main2)$coefficients[2,1]-1.96*summary(depress_main2)$coefficients[2,2])
+covar[8,7]<-exp(summary(depress_main2)$coefficients[2,1]+1.96*summary(depress_main2)$coefficients[2,2])
+covar[8,8]<-summary(depress_main2)$coefficients[2,4]
+covar[8,9]<-exp(summary(depress_main3)$coefficients[2,1])
+covar[8,10]<-exp(summary(depress_main3)$coefficients[2,1]-1.96*summary(depress_main3)$coefficients[2,2])
+covar[8,11]<-exp(summary(depress_main3)$coefficients[2,1]+1.96*summary(depress_main3)$coefficients[2,2])
+covar[8,12]<-summary(depress_main3)$coefficients[2,4]
+
+covar[9,1]<-exp(summary(depress_sen1)$coefficients[2,1])
+covar[9,2]<-exp(summary(depress_sen1)$coefficients[2,1]-1.96*summary(depress_sen1)$coefficients[2,2])
+covar[9,3]<-exp(summary(depress_sen1)$coefficients[2,1]+1.96*summary(depress_sen1)$coefficients[2,2])
+covar[9,4]<-summary(depress_sen1)$coefficients[2,4]
+covar[9,5]<-exp(summary(depress_sen2)$coefficients[2,1])
+covar[9,6]<-exp(summary(depress_sen2)$coefficients[2,1]-1.96*summary(depress_sen2)$coefficients[2,2])
+covar[9,7]<-exp(summary(depress_sen2)$coefficients[2,1]+1.96*summary(depress_sen2)$coefficients[2,2])
+covar[9,8]<-summary(depress_sen2)$coefficients[2,4]
+covar[9,9]<-exp(summary(depress_sen3)$coefficients[2,1])
+covar[9,10]<-exp(summary(depress_sen3)$coefficients[2,1]-1.96*summary(depress_sen3)$coefficients[2,2])
+covar[9,11]<-exp(summary(depress_sen3)$coefficients[2,1]+1.96*summary(depress_sen3)$coefficients[2,2])
+covar[9,12]<-summary(depress_sen3)$coefficients[2,4]
+
+covar[10,1]<-summary(bw1)$coefficients[2,1]
+covar[10,2]<-summary(bw1)$coefficients[2,1]-1.96*summary(bw1)$coefficients[2,2]
+covar[10,3]<-summary(bw1)$coefficients[2,1]+1.96*summary(bw1)$coefficients[2,2]
+covar[10,4]<-summary(bw1)$coefficients[2,4]
+covar[10,5]<-summary(bw2)$coefficients[2,1]
+covar[10,6]<-summary(bw2)$coefficients[2,1]-1.96*summary(bw2)$coefficients[2,2]
+covar[10,7]<-summary(bw2)$coefficients[2,1]+1.96*summary(bw2)$coefficients[2,2]
+covar[10,8]<-summary(bw2)$coefficients[2,4]
+covar[10,9]<-summary(bw3)$coefficients[2,1]
+covar[10,10]<-summary(bw3)$coefficients[2,1]-1.96*summary(bw3)$coefficients[2,2]
+covar[10,11]<-summary(bw3)$coefficients[2,1]+1.96*summary(bw3)$coefficients[2,2]
+covar[10,12]<-summary(bw3)$coefficients[2,4]
+
+write.csv(covar,"C:/mini project 2/results/crude_observation.csv")
